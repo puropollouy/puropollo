@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PuroPollo — Pollo 100% natural, de Salto a tu mesa</title>
+<meta name="description" content="PuroPollo: pollo 100% natural, fresco y a buen precio. Emprendimiento uruguayo de Salto.">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F1E4;
+    --paper:#FBF7EE;
+    --forest:#C62828;
+    --forest-dark:#8F1D1D;
+    --marigold:#F2C230;
+    --marigold-dark:#D9A61B;
+    --ink:#241F19;
+    --stamp:#241F19;
+    --line: rgba(36,31,25,0.14);
+    --radius: 4px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--forest);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1.5px;
+    background:var(--marigold-dark);
+    display:inline-block;
+  }
+  :focus-visible{ outline:3px solid var(--marigold-dark); outline-offset:3px; }
+
+  /* HEADER */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,241,228,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:20px;
+    color:var(--forest-dark);
+  }
+  .brand svg, .brand img{ width:42px; height:42px; flex:none; object-fit:contain; }
+  .nav-links{ display:flex; gap:32px; font-size:15px; font-weight:500; }
+  .nav-links a{ position:relative; padding:4px 0; }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--marigold-dark); transition:width .2s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    background:var(--forest); color:var(--paper);
+    padding:10px 20px; border-radius:var(--radius);
+    font-weight:600; font-size:14px;
+    border:1px solid var(--forest);
+  }
+  .nav-cta:hover{ background:var(--forest-dark); }
+  .burger{ display:none; }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    background:var(--forest);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;
+    align-items:center;
+    padding-top:88px; padding-bottom:80px;
+    position:relative; z-index:2;
+  }
+  .hero .eyebrow{ color:var(--marigold); }
+  .hero .eyebrow::before{ background:var(--marigold); }
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 60px);
+    color:var(--paper);
+    margin-top:18px;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--marigold);
+  }
+  .hero p.lead{
+    margin-top:20px; max-width:46ch;
+    font-size:18px; color:rgba(251,247,238,0.82);
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:var(--radius);
+    font-weight:600; font-size:15px;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn-primary{ background:var(--marigold); color:var(--forest-dark); }
+  .btn-primary:hover{ background:#f2ba55; transform:translateY(-2px); }
+  .btn-ghost{ border:1.5px solid rgba(251,247,238,0.4); color:var(--paper); }
+  .btn-ghost:hover{ border-color:var(--paper); transform:translateY(-2px); }
+
+  .hero-art{ position:relative; display:flex; justify-content:center; align-items:center; }
+  .hero-art svg{ width:100%; max-width:320px; }
+  .hero-logo{
+    width:100%; max-width:300px;
+    filter: drop-shadow(0 18px 34px rgba(0,0,0,0.28));
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+  .stamp{
+    position:absolute;
+    width:132px; height:132px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stamp-hero{ top:-10px; right:-6px; transform:rotate(9deg); }
+
+  .hero-divider{
+    position:absolute; left:0; right:0; bottom:-1px; height:64px;
+    background:var(--cream);
+    clip-path:polygon(0 100%, 100% 100%, 100% 40%, 0 100%);
+  }
+
+  /* SECTION HEADINGS */
+  section{ padding:88px 0; }
+  .sec-head{ max-width:640px; margin-bottom:48px; }
+  .sec-head h2{ font-size:clamp(30px,3.6vw,42px); margin-top:14px; color:var(--forest-dark); }
+  .sec-head p{ margin-top:14px; font-size:17px; color:rgba(36,31,25,0.72); }
+
+  /* BENEFICIOS */
+  .benef-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  }
+  .benef-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 22px;
+  }
+  .benef-card .num{
+    font-family:'Space Mono', monospace; font-size:12px;
+    color:var(--marigold-dark); letter-spacing:0.08em;
+  }
+  .benef-card h3{
+    font-size:20px; margin-top:14px; color:var(--forest-dark);
+  }
+  .benef-card p{
+    margin-top:10px; font-size:14.5px; color:rgba(36,31,25,0.68);
+  }
+  .benef-card svg{ width:30px; height:30px; margin-bottom:6px; color:var(--forest); }
+
+  /* QUIENES SOMOS */
+  .quienes{ background:var(--forest-dark); color:var(--paper); position:relative; }
+  .quienes .wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start; }
+  .quienes .eyebrow{ color:var(--marigold); }
+  .quienes .eyebrow::before{ background:var(--marigold); }
+  .quienes h2{ color:var(--paper); font-size:clamp(30px,3.6vw,40px); margin-top:14px; }
+  .quienes-badge{
+    background:rgba(251,247,238,0.06);
+    border:1px solid rgba(251,247,238,0.16);
+    border-radius:var(--radius);
+    padding:22px;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    line-height:1.7;
+    color:rgba(251,247,238,0.75);
+  }
+  .quienes-badge strong{ color:var(--marigold); display:block; font-size:14px; margin-bottom:8px; }
+  .quienes-copy p{ font-size:17px; color:rgba(251,247,238,0.85); margin-top:18px; }
+  .quienes-copy p:first-of-type{ margin-top:0; }
+  .quienes-copy .highlight{ color:var(--marigold); font-weight:600; }
+  .founder-row{
+    display:flex; gap:16px; margin-top:30px; flex-wrap:wrap;
+  }
+  .founder-pill{
+    display:flex; align-items:center; gap:10px;
+    background:rgba(251,247,238,0.06);
+    border:1px solid rgba(251,247,238,0.16);
+    padding:10px 16px; border-radius:999px;
+    font-size:14px;
+  }
+  .founder-pill .dot{
+    width:8px; height:8px; border-radius:50%; background:var(--marigold);
+  }
+
+  /* PRODUCTO */
+  .producto .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .producto-visual{
+    position:relative;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:0;
+    overflow:hidden;
+    aspect-ratio:1/1;
+  }
+  .producto-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .producto-badge{
+    position:absolute; bottom:14px; left:14px;
+    display:flex; align-items:center; gap:8px;
+    background:rgba(251,247,238,0.94);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 14px 6px 6px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  }
+  .producto-badge img{ width:28px; height:28px; border-radius:0; }
+  .producto-badge span{
+    font-family:'Space Mono', monospace; font-size:11px;
+    letter-spacing:0.05em; color:var(--forest-dark); font-weight:700;
+  }
+  .producto-list{ margin-top:24px; display:flex; flex-direction:column; gap:16px; }
+  .producto-item{ display:flex; gap:14px; align-items:flex-start; }
+  .producto-item svg{ width:20px; height:20px; margin-top:3px; color:var(--stamp); flex:none; }
+  .producto-item p{ font-size:15.5px; color:rgba(36,31,25,0.78); }
+  .producto-item strong{ color:var(--forest-dark); }
+
+  /* CONTACTO */
+  .contacto{
+    background:var(--marigold);
+    text-align:center;
+  }
+  .contacto .eyebrow{ justify-content:center; color:var(--forest-dark); }
+  .contacto .eyebrow::before{ background:var(--forest-dark); }
+  .contacto h2{ color:var(--forest-dark); font-size:clamp(32px,4.5vw,48px); margin-top:14px; }
+  .contacto p{ max-width:520px; margin:16px auto 0; color:rgba(32,64,44,0.82); font-size:17px; }
+  .contacto-ctas{ display:flex; gap:14px; justify-content:center; margin-top:32px; flex-wrap:wrap; }
+  .btn-dark{ background:var(--forest-dark); color:var(--paper); }
+  .btn-dark:hover{ background:var(--forest); transform:translateY(-2px); }
+  .btn-outline{ border:1.5px solid var(--forest-dark); color:var(--forest-dark); }
+  .btn-outline:hover{ background:rgba(32,64,44,0.08); transform:translateY(-2px); }
+
+  /* FOOTER */
+  footer{
+    background:var(--forest-dark); color:rgba(251,247,238,0.6);
+    padding:32px 0; font-size:13.5px;
+  }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  footer .brand{ color:var(--paper); font-size:15px; }
+  footer .brand svg, footer .brand img{ width:22px; height:22px; }
+
+  .note{
+    font-family:'Space Mono', monospace; font-size:12px;
+    background:rgba(178,58,46,0.08); border:1px dashed var(--stamp);
+    color:var(--stamp); padding:3px 8px; border-radius:3px;
+  }
+
+  @media (max-width: 860px){
+    .nav-links{ display:none; }
+    .hero .wrap{ grid-template-columns:1fr; padding-top:56px; padding-bottom:56px; }
+    .hero-art{ order:-1; }
+    .stamp-hero{ top:-6px; right:6px; width:100px; height:100px; }
+    .hero-logo{ max-width:220px; }
+    .benef-grid{ grid-template-columns:1fr 1fr; }
+    .quienes .wrap{ grid-template-columns:1fr; }
+    .producto .wrap{ grid-template-columns:1fr; }
+    section{ padding:64px 0; }
+  }
+  @media (max-width: 520px){
+    .benef-grid{ grid-template-columns:1fr; }
+    .hero-ctas, .contacto-ctas{ flex-direction:column; }
+    .btn{ justify-content:center; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a href="#" class="brand">
+      <img src="logo.png" alt="Logo PuroPollo">
+      PuroPollo
+    </a>
+    <div class="nav-links">
+      <a href="#producto">Producto</a>
+      <a href="#quienes-somos">Quiénes somos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="#contacto" class="nav-cta">Escribinos</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Salto, Uruguay</div>
+      <h1>Pollo <em>100% natural</em>, directo a tu mesa</h1>
+      <p class="lead">Sin conservantes, sin vueltas ni intermediarios. Fresco, nutritivo y a un precio que rinde de verdad — así tiene que ser el pollo de todos los días.</p>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn btn-primary">Escribinos por WhatsApp</a>
+        <a href="#producto" class="btn btn-ghost">Ver el producto</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="logo.png" alt="Logo PuroPollo — gallo sobre fondo amarillo" class="hero-logo">
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<section id="producto" class="producto">
+  <div class="wrap">
+    <div class="producto-visual">
+      <img src="producto.jpg" alt="Pollo PuroPollo empaquetado, 100% natural">
+      <div class="producto-badge">
+        <img src="logo.png" alt="">
+        <span>100% NATURAL</span>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">Nuestro producto</div>
+      <h2 style="font-size:clamp(28px,3.4vw,36px); margin-top:14px; color:var(--forest-dark);">Lo que ponés en el plato, importa</h2>
+      <div class="producto-list">
+        <div class="producto-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <p><strong>100% natural:</strong> sin conservantes ni aditivos artificiales, tal como debería ser.</p>
+        </div>
+        <div class="producto-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <p><strong>Nutritivo de verdad:</strong> alto en proteína, ideal para el día a día de toda la familia.</p>
+        </div>
+        <div class="producto-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <p><strong>Precio justo:</strong> al vender directo, evitamos intermediarios y trasladamos ese ahorro a tu bolsillo.</p>
+        </div>
+        <div class="producto-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <p><strong>De Salto, para Salto:</strong> un producto local, cerca tuyo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quienes" id="quienes-somos">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Quiénes somos</div>
+      <h2>Dos jóvenes de Salto, un mismo objetivo</h2>
+      <div class="founder-row">
+        <div class="founder-pill"><span class="dot"></span> Benjamin Dall Oglio</div>
+        <div class="founder-pill"><span class="dot"></span> Ezer Suarez</div>
+      </div>
+    </div>
+    <div class="quienes-copy">
+      <p>Somos <span class="highlight">Benjamin Dall Oglio y Ezer Suarez</span>, dos jóvenes emprendedores uruguayos de la ciudad de <span class="highlight">Salto</span>. Como muchas familias de la zona, notamos algo que nos parecía injusto: conseguir un pollo realmente fresco y natural, sin conservantes, muchas veces significaba pagar de más — o resignar calidad por precio.</p>
+      <p>Así nació <span class="highlight">PuroPollo</span>: la idea de vender directo, sin tantos intermediarios, para que un producto natural y de calidad no sea un lujo, sino algo accesible para cualquier mesa de Salto.</p>
+      <p>Hoy seguimos siendo un emprendimiento chico y cercano — atendemos nosotros mismos cada pedido, porque creemos que así también se cuida la calidad.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contacto">
+  <div class="wrap">
+    <div class="eyebrow">Hablemos</div>
+    <h2>¿Consultas o pedidos? Escribinos</h2>
+    <p>Contanos qué necesitás y te respondemos a la brevedad. Sin compras online, todo el pedido lo cerramos directo con vos.</p>
+    <div class="contacto-ctas">
+      <a href="https://wa.me/59896629303" class="btn btn-dark">WhatsApp</a>
+      <a href="https://www.instagram.com/puropollo.uy/" class="btn btn-outline">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="brand" style="display:flex; align-items:center; gap:8px;">
+      <img src="logo.png" alt="Logo PuroPollo">
+      PuroPollo
+    </a>
+    <span>Salto, Uruguay — © 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
